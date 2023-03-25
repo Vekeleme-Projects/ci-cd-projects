@@ -212,7 +212,7 @@
     <repositories>
         <repository>
             <id>${NEXUS-GRP-REPO}</id>
-            <url>http://${NEXUS_URL}/repository/${NEXUS_GRP_REPO}/</url>
+            <url>http://${NEXUS_URL}/repository/${NEXUS-GRP-REPO}/</url>
         </repository>
     </repositories>
 
