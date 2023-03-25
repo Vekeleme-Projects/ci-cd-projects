@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script {
                     echo 'Uploading to Nexus Artifactory'
-                    mavenPom = readMavenPom: "pom.xml";
+                    mavenPom = readMavenPom file: "pom.xml";
 
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'mavenPom.aritfactId',
