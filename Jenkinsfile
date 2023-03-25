@@ -70,16 +70,16 @@ pipeline {
             steps {
                 script {
                     echo 'Uploading to Nexus Artifactory'
-                    mavenPom = readMavenPom file: "pom.xml";
+                    pom = readMavenPom file: "pom.xml";
 
                     nexusArtifactUploader artifacts: [
-                        [artifactId: 'mavenPom.aritfactId',
+                        [artifactId: 'pom.aritfactId',
                          classifier: '',
                          file: "target/${pom.artifactId}-${APP_VERSION}",
-                         type: 'mavenPom.packaging']
+                         type: 'pom.packaging']
                          ],
                          credentialsId: NEXUS_CREDENTIAL_ID, 
-                         groupId: 'mavenPom.groupId',
+                         groupId: 'pom.groupId',
                          nexusUrl: NEXUS_URL,
                          nexusVersion: NEXUS_VERSION,
                          protocol: NEXUS_PROTOCOL,
