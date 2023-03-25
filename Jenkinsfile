@@ -9,10 +9,10 @@ pipeline {
     environment {
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
-        NEXUS_URL = ''
-        NEXUS_REPO_NAME = 'release'
+        NEXUS_URL = '172.31.43.212:8081'
+        NEXUS_REPO_NAME = 'vprofile-releases'
         NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-        NEXUS-GRP-REPO = 'vprofile-grp-repo'
+        NEXUS-GRP-REPO = 'vprofile-group'
 
     }
 
@@ -94,10 +94,10 @@ pipeline {
             steps{
                 script{
                     sshagent(credentials: ['GitHub-SSH']) {
-                        sh "git remote set-url origin git@github.com:Vekeleme-Projects/ci-projects.git"
-                        sh 'git add .'
-                        sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:main'
+                        // sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
+                        // sh 'git add .'
+                        // sh 'git commit -m "ci: version bump"'
+                        // sh 'git push origin HEAD:main'
                         
                     }
                 }
