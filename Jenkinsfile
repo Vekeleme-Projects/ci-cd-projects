@@ -9,8 +9,11 @@ pipeline {
     environment {
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
-        NEXUS_REPO_URL = ''
+        NEXUS_URL = ''
         NEXUS_REPO_NAME = 'release'
+        NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+        NEXUS-GRP-REPO = 'vprofile-grp-repo'
+
     }
 
     stages {
@@ -75,9 +78,9 @@ pipeline {
                          file: "target/${pom.artifactId}-${APP_VERSION}",
                          type: 'pom.packaging']
                          ],
-                         credentialsId: 'git-credentials', 
+                         credentialsId: NEXUS_CREDENTIAL_ID, 
                          groupId: 'pom.groupId',
-                         nexusUrl: NEXUS_REPO_URL,
+                         nexusUrl: NEXUS_URL,
                          nexusVersion: NEXUS_VERSION,
                          protocol: NEXUS_PROTOCOL,
                          repository: NEXUS_REPO_NAME,
