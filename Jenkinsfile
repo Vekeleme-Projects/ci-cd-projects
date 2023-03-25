@@ -12,7 +12,7 @@ pipeline {
         NEXUS_URL = '172.31.43.212:8081'
         NEXUS_REPO_NAME = 'vprofile-releases'
         NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-        NEXUS-GRP-REPO = 'vprofile-group'
+        NEXUS_GRP_REPO = 'vprofile-group'
 
     }
 
