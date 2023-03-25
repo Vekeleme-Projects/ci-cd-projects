@@ -10,7 +10,7 @@ pipeline {
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
         NEXUS_REPO_URL = ''
-        NEXUS_REPO_NAME = 'tesla-release'
+        NEXUS_REPO_NAME = 'release'
     }
 
     stages {
@@ -29,11 +29,6 @@ pipeline {
         } 
 
         stage ('test') {
-            when {
-                expression {
-                    params.executeTests == true
-                }
-            }
             steps {
                 script {
                     echo 'Testing application'
