@@ -88,21 +88,58 @@ pipeline {
 
                 }
             }
-        }        
+        }
 
-        stage("commit version update"){
+        stage("Copy Files to Ansible Server"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'git-credentials', variable: '')]) {
-                        sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
-                        sh 'git add .'
-                        sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:main'
-                        
+                    sshagent(['ansible-ssh-credentials']) {
+                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.42.55:/ansible/"
+
+                        withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'ubuntu')]) {
+                            sh 'scp $keyFile ubuntu@172.31.42.55:/home/ubuntu/.ssh/ssh-key.pem'
+                        }
+
                     }
                 }
             }
-        }       
+        }
+
+
+        stage ("Execute Ansible playbook") {
+            steps {
+                script {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-credentials', keyFileVariable: 'identity', passphraseVariable: '',  usernameVariable: 'ubuntu')]) {
+
+                        def remote = [:]
+                        remote.name = "ubuntu"
+                        remote.host = 172.31.42.55
+                        remote.allowAnyHosts = true
+                        
+                        remote.user = user
+                        remote.identityFile = identity
+
+                        // sh "ssh -i ${identity} ubuntu@172.31.42.55 'ansible-playbook docker-install.yaml'"
+                        sshCommand remote: remote, command: 'ls -la'
+                    }
+                }
+            }
+        }
+
+
+        // stage("commit version update"){
+        //     steps{
+        //         script{
+        //             withCredentials([string(credentialsId: 'git-credentials', variable: '')]) {
+        //                 sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
+        //                 sh 'git add .'
+        //                 sh 'git commit -m "ci: version bump"'
+        //                 sh 'git push origin HEAD:main'
+                        
+        //             }
+        //         }
+        //     }
+        // }       
 
     }
 
