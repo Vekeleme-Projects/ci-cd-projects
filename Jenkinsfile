@@ -97,7 +97,7 @@ pipeline {
                         sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@3.135.248.204:/home/ubuntu/ansible/"
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'ubuntu')]) {
-                            sh 'scp ${keyFile} ubuntu@3.135.248.204:/home/ubuntu/.ssh/ssh-key.pem'
+                            sh 'scp ${keyfile} ubuntu@3.135.248.204:~/.ssh/ssh-key.pem'
                         }
 
                     }
