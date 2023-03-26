@@ -73,7 +73,7 @@ pipeline {
                     pom = readMavenPom file: "pom.xml";
 
                     nexusArtifactUploader artifacts: [
-                        [artifactId: pom.aritfactId,
+                        [artifactId: pom.artifactId,
                          classifier: '',
                          file: "target/${pom.artifactId}-${APP_VERSION}",
                          type: pom.packaging]
