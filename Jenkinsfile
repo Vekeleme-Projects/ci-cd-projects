@@ -93,7 +93,7 @@ pipeline {
         stage("commit version update"){
             steps{
                 script{
-                    withCredentials([gitUsernamePassword(credentialsId: 'git-credentials', gitToolName: 'Default')]) {
+                    withCredentials([string(credentialsId: 'git-credentials', variable: '')]) {
                         sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
