@@ -113,7 +113,7 @@ pipeline {
 
                         def remote = [:]
                         remote.name = "ubuntu"
-                        remote.host = 172.31.24.28
+                        remote.host = "172.31.24.28"
                         remote.allowAnyHosts = true
                         
                         remote.user = user
