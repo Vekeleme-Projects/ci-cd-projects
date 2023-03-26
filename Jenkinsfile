@@ -75,7 +75,7 @@ pipeline {
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'pom.aritfactId',
                          classifier: '',
-                         file: "target/${pom.artifactId}-${APP_VERSION}",
+                         file: "target/${pom.artifactId}",
                          type: 'pom.packaging']
                          ],
                          credentialsId: NEXUS_CREDENTIAL_ID, 
