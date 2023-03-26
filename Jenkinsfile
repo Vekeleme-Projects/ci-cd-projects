@@ -94,10 +94,10 @@ pipeline {
             steps{
                 script{
                     sshagent(['ansible-ssh-credentials']) {
-                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.24.28:/home/ubuntu/ansible/"
+                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@3.135.248.204:/home/ubuntu/ansible/"
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'ubuntu')]) {
-                            sh 'scp ${keyFile} ubuntu@172.31.24.28:/home/ubuntu/.ssh/ssh-key.pem'
+                            sh 'scp ${keyFile} ubuntu@3.135.248.204:/home/ubuntu/.ssh/ssh-key.pem'
                         }
 
                     }
@@ -113,13 +113,13 @@ pipeline {
 
                         def remote = [:]
                         remote.name = "ubuntu"
-                        remote.host = "172.31.24.28"
+                        remote.host = "3.135.248.204"
                         remote.allowAnyHosts = true
                         
                         remote.user = user
                         remote.identityFile = identity
 
-                        sh "ssh -i ${identity} ubuntu@172.31.24.28 'ls -la'"
+                        sh "ssh -i ${identity} ubuntu@3.135.248.204 'ls -la'"
                         //sshCommand remote: remote, command: 'ls -la'
                     }
                 }
