@@ -9,7 +9,7 @@ pipeline {
     environment {
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
-        NEXUS_URL = '18.222.194.124:8081'
+        NEXUS_URL = '3.141.195.48:8081'
         NEXUS_REPO_NAME = 'vprofile-releases/'
         NEXUS_CREDENTIAL_ID = 'nexus-credentials'
         NEXUS_GRP_REPO = 'vprofile-group'
@@ -94,10 +94,10 @@ pipeline {
             steps{
                 script{
                     sshagent(['ansible-ssh-credentials']) {
-                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.42.55:/ansible/"
+                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.24.28:/ansible/"
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'ubuntu')]) {
-                            sh 'scp $keyFile ubuntu@172.31.42.55:/home/ubuntu/.ssh/ssh-key.pem'
+                            sh 'scp $keyFile ubuntu@172.31.24.28:/home/ubuntu/.ssh/ssh-key.pem'
                         }
 
                     }
@@ -113,14 +113,14 @@ pipeline {
 
                         def remote = [:]
                         remote.name = "ubuntu"
-                        remote.host = 172.31.42.55
+                        remote.host = 172.31.24.28
                         remote.allowAnyHosts = true
                         
                         remote.user = user
                         remote.identityFile = identity
 
-                        // sh "ssh -i ${identity} ubuntu@172.31.42.55 'ansible-playbook docker-install.yaml'"
-                        sshCommand remote: remote, command: 'ls -la'
+                        sh "ssh -i ${identity} ubuntu@172.31.24.28 'ls -la'"
+                        //sshCommand remote: remote, command: 'ls -la'
                     }
                 }
             }
