@@ -26,7 +26,7 @@ pipeline {
                     
                     def matchVersion = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matchVersion[0][1]
-                    env.APP_VERSION = "$version-$BUILD_NUMBER"
+                    env.APP_VERSION = "$version"
                 }
             }
         } 
@@ -75,7 +75,7 @@ pipeline {
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'pom.aritfactId',
                          classifier: '',
-                         file: "target/${pom.artifactId}",
+                         file: "target/${pom.artifactId}-${APP_VERSION}",
                          type: 'pom.packaging']
                          ],
                          credentialsId: NEXUS_CREDENTIAL_ID, 
