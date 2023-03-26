@@ -93,11 +93,11 @@ pipeline {
         stage("commit version update"){
             steps{
                 script{
-                    sshagent(credentials: ['GitHub-SSH']) {
-                        // sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
-                        // sh 'git add .'
-                        // sh 'git commit -m "ci: version bump"'
-                        // sh 'git push origin HEAD:main'
+                    withCredentials([gitUsernamePassword(credentialsId: 'git-credentials', gitToolName: 'Default')]) {
+                        sh "git remote set-url origin https://github.com/Vekeleme-Projects/ci-cd-projects.git"
+                        sh 'git add .'
+                        sh 'git commit -m "ci: version bump"'
+                        sh 'git push origin HEAD:main'
                         
                     }
                 }
