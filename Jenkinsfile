@@ -94,7 +94,7 @@ pipeline {
             steps{
                 script{
                     sshagent(['ansible-ssh-credentials']) {
-                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.24.28:/ansible/"
+                        sh "scp -o StrictHostKeyChecking=no ansible/* ubuntu@172.31.24.28:/home/ubuntu/ansible/"
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'ubuntu')]) {
                             sh 'scp $keyFile ubuntu@172.31.24.28:/home/ubuntu/.ssh/ssh-key.pem'
